@@ -26,9 +26,9 @@ void print_sorted(Node * root){
 void print_reverse(Node * root){
         if(root == NULL)
                 return;
-        print_sorted(root->right);
+        print_reverse(root->right);
         printf("%d\n", root->value);
-	print_sorted(root->left);
+	print_reverse(root->left);
         //print_sorted(root->right);
 	//printf("%d\n", root->value);
 }
@@ -45,6 +45,7 @@ int main(){
 	root1->left = new_node(4);
 	root1->right = new_node(7);
 	root1->right->right = new_node(9);
+	root1->right->left = new_node(6);
 	//print_sorted(root1);
 	print_reverse(root1); 
 }
