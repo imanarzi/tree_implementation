@@ -1,11 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+int stack[100];
+int top = -1;
+
+int isEmpty(){
+	return !(top + 1);
+}
+
 typedef struct node{
 	int value;
 	struct node * left;
 	struct node * right;
 } Node;
+
 
 void print_sorted(Node * root){
 	if(root == NULL)
@@ -20,7 +28,9 @@ void print_reverse(Node * root){
                 return;
         print_sorted(root->right);
         printf("%d\n", root->value);
-        print_sorted(root->left);
+	print_sorted(root->left);
+        //print_sorted(root->right);
+	//printf("%d\n", root->value);
 }
 
 Node * new_node(int val){
