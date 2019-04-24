@@ -46,7 +46,7 @@ Node * dequeue(QNode * front){
 	front = front->next;
 	q = front;
 	Node * t = temp->value;
-	//free(temp);
+	free(temp);
 	return t;
 }
 
@@ -93,7 +93,7 @@ int num_leaves(Node * root){
 			leaves++;
 //			printf("leaf found: %d\n", temp->value);
 		}
-		printf("%d\n", empty);
+	//	printf("%d\n", empty);
 	}
 	free(q);
 	return leaves;
