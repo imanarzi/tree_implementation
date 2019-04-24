@@ -38,7 +38,7 @@ Node * dequeue(QNode * front){
 	if(front->next == NULL){
 		empty = 1;
 		Node * qq = front->value;
-	//	free(front);
+//		free(front);
 //		printf("here");
 		return qq;
 	}
@@ -81,24 +81,45 @@ int num_leaves(Node * root){
 	enqueue(q, root);
 	while(!empty){
 		Node * temp = dequeue(q);
-		if(temp->right  != NULL){
+		if(temp->right != NULL){
 			enqueue(q, temp->right);
-//			printf("right tree added: %d\n", temp->right->value);
 		}
 		if(temp->left != NULL){
 			enqueue(q, temp->left);
-//			printf("left tree added: %d\n", temp->left->value);
 		}
 		if(temp->right == NULL && temp->left == NULL){
 			leaves++;
-//			printf("leaf found: %d\n", temp->value);
 		}
-	//	printf("%d\n", empty);
 	}
 	free(q);
 	return leaves;
 	
 }
+
+int num_full_nodes(Node * root){
+        if(root == NULL)
+                return 0;
+        q = malloc(sizeof(QNode));
+        int full_nodes = 0;
+        empty = 1;
+        enqueue(q, root);
+        while(!empty){
+                Node * temp = dequeue(q);
+                if(temp->right  != NULL){
+                        enqueue(q, temp->right);
+                }
+                if(temp->left != NULL){
+                        enqueue(q, temp->left);
+                }
+                if(temp->right != NULL && temp->left != NULL){
+                        full_nodes++;
+                }
+        }
+        free(q);
+        return full_nodes;
+
+}
+
 Node * new_node(int val){
 	Node * temp = malloc(sizeof(Node));
 	temp->value = val;
@@ -125,6 +146,32 @@ int main(){
 	printf("REVERSE: \n");
 	print_reverse(root1); 
 	printf("NUMBER OF LEAVES: %d\n", num_leaves(root1));		
+	printf("NUMBER OF FULL NODES: %d\n", num_full_nodes(root1));
 	free_all(root1);
+
+	Node* root2 = new_node(12);
+        root2->right = new_node(127);
+        root2->right->left = new_node(31);
+        root2->right->right = new_node(130);
+        printf("SORTED: \n");
+        print_sorted(root2);
+        printf("REVERSE: \n");
+        print_reverse(root2);
+        printf("NUMBER OF LEAVES: %d\n", num_leaves(root2));
+        printf("NUMBER OF FULL NODES: %d\n", num_full_nodes(root2));
+        free_all(root2);
+	
+	Node* root3 = new_node(27);
+        root3->left = new_node(12);
+        root3->left->left = new_node(11);
+        root3->left->left->left = new_node(7);
+        printf("SORTED: \n");
+        print_sorted(root3);
+        printf("REVERSE: \n");
+        print_reverse(root3);
+	printf("NUMBER OF LEAVES: %d\n", num_leaves(root3));
+        printf("NUMBER OF FULL NODES: %d\n", num_full_nodes(root3));
+        free_all(root3);
+	
 	return 0;
 }
